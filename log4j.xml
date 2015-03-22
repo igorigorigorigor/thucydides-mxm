@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <!--Configuring appenders-->
+    <appender name = "Console" class = "org.apache.log4j.ConsoleAppender">
+        <param name = "Target" value = "System.out" />
+        <layout class = "org.apache.log4j.PatternLayout">
+            <param name = "ConversionPattern" value = "%d{ABSOLUTE} [%-5p] %C{1}(%L): %M - %m%n" />
+        </layout>
+    </appender>    
+    
+    <appender name = "DebugLog" class = "org.apache.log4j.DailyRollingFileAppender">
+        <param name = "File" value = "./logs/debug.log" />
+        <param name = "Append" value = "true" />        
+        <param name = "Threshold" value = "debug" />
+        <param name = "DatePattern" value = "'.'yyyy-MM-dd" />
+        <layout class ="org.apache.log4j.PatternLayout">
+            <param name= "ConversionPattern" value = "%d{ABSOLUTE} [%-5p] %C{2}(%L): %M - %m%n"/>
+        </layout>
+    </appender>
+    
+    <appender name = "InfoLog" class = "org.apache.log4j.DailyRollingFileAppender">
+        <param name = "File" value = "./logs/info.log" />
+        <param name = "Append" value = "true" />
+        <param name = "Threshold" value = "info" />
+        <param name = "DatePattern" value = "'.'yyyy-MM-dd" />
+        <layout class ="org.apache.log4j.PatternLayout">
+            <param name= "ConversionPattern" value = "%d{ABSOLUTE} [%-5p] %C{2}(%L): %M - %m%n"/>
+        </layout>
+    </appender>   
+ 
+     <logger name = "framework">
+        <level value = "debug" />
+        <appender-ref ref = "DebugLog" />
+        <appender-ref ref = "InfoLog" />
+        <appender-ref ref = "Console" />
+    </logger>
+    
+     <logger name = "test">
+        <level value = "trace" />
+        <appender-ref ref = "DebugLog" />
+        <appender-ref ref = "InfoLog" />
+        <appender-ref ref = "Console" />
+    </logger>
+    <logger name = "org.apache">
+        <level value = "off" />
+        <appender-ref ref = "Console" />
+    </logger>
+        <logger name = "freemarker.cache">
+        <level value = "off" />
+        <appender-ref ref = "Console" />
+    </logger> 
+</log4j:configuration>
